@@ -9,12 +9,15 @@
   },
   "scripts": {
     "start": "node index.js",
-    "dev": "env-cmd -f config/keys.env nodemon index.js -e env,js,json"
+    "server": "env-cmd -f config/keys.env nodemon index.js -e env,js,json",
+    "client": "npm run start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^5.2.0",
     "cookie-session": "^1.4.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
