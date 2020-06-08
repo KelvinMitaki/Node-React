@@ -3,11 +3,16 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
+import { Provider } from "react-redux";
+import { createStore, compose, applyMiddleware } from "redux";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION__ || compose();
+const store = createStore(() => 1, composeEnhancers(applyMiddleware()));
 
 ReactDOM.render(
-  <React.StrictMode>
+  <Provider store={store}>
     <App />
-  </React.StrictMode>,
+  </Provider>,
   document.getElementById("root")
 );
 
