@@ -27,9 +27,9 @@ const mongooseConnect = async () => {
       useCreateIndex: true,
       useFindAndModify: false
     });
-    app.listen(PORT, () => console.log(`server started on port ${PORT}`));
   } catch (error) {
     console.log(error);
   }
 };
 mongooseConnect();
+app.listen(PORT, () => console.log(`server started on port ${PORT}`));
