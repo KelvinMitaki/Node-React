@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 
 class Header extends Component {
   render() {
@@ -10,7 +11,11 @@ class Header extends Component {
           </a>
           <ul className="right">
             <li>
-              <a href="/">Login With Google</a>
+              {this.props.loggedIn ? (
+                <a href="/">Logout</a>
+              ) : (
+                <a href="/auth/google">Login With Google</a>
+              )}
             </li>
           </ul>
         </div>
@@ -19,4 +24,10 @@ class Header extends Component {
   }
 }
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    loggedIn: state.auth.loggedIn
+  };
+};
+
+export default connect(mapStateToProps)(Header);

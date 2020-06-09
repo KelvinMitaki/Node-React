@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import Header from "./Header";
 import { fetchUser } from "../redux/actions";
 import "./App.css";
+import Dashboard from "./Dashboard";
 
 export class App extends Component {
   componentDidMount() {
@@ -24,6 +25,7 @@ export class App extends Component {
       <div>
         <BrowserRouter>
           <Header />
+          <Route path="/surveys" component={Dashboard} />
         </BrowserRouter>
       </div>
     );
