@@ -1,7 +1,8 @@
 const route = require("express").Router();
 const stripe = require("stripe")(process.env.STRIPE_PRIVATE);
+const auth = require("../middlewares/authCheck");
 
-route.post("/api/stripe", async (req, res) => {
+route.post("/api/stripe", auth, async (req, res) => {
   try {
     await stripe.charges.create({
       amount: 500,
