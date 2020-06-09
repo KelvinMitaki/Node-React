@@ -14,8 +14,8 @@ export const loadingStop = () => {
 };
 
 export const fetchUser = () => async dispatch => {
-  loadingStart();
+  dispatch(loadingStart());
   const response = await axios.get("/api/current_user");
   dispatch({ type: FETCH_USER, payload: response.data });
-  loadingStop();
+  dispatch(loadingStop());
 };
