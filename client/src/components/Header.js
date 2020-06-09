@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import Payments from "./Payments";
 
 class Header extends Component {
   render() {
@@ -14,9 +15,12 @@ class Header extends Component {
             Emaily
           </Link>
           <ul className="right">
+            <li>{this.props.loggedIn && <Payments />}</li>
             <li>
               {this.props.loggedIn ? (
-                <a href="/api/logout">Logout</a>
+                <React.Fragment>
+                  <a href="/api/logout">Logout</a>
+                </React.Fragment>
               ) : (
                 <a href="/auth/google">Login With Google</a>
               )}
