@@ -16,9 +16,9 @@ class Header extends Component {
           </Link>
           <ul className="right">
             <li>{this.props.loggedIn && <Payments />}</li>
-            <li style={{ margin: "0 10px" }}>
+            <li style={{ margin: "15px 10px 0 10px" }}>
               {this.props.loggedIn && (
-                <strong>Credits: {this.props.loggedIn.credits}</strong>
+                <h5>Credits: {this.props.loggedIn.credits}</h5>
               )}
             </li>
             <li>
