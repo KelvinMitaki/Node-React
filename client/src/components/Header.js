@@ -12,7 +12,7 @@ class Header extends Component {
           <ul className="right">
             <li>
               {this.props.loggedIn ? (
-                <a href="/">Logout</a>
+                <a href="/api/logout">Logout</a>
               ) : (
                 <a href="/auth/google">Login With Google</a>
               )}
