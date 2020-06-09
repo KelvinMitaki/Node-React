@@ -27,12 +27,9 @@ export const fetchUser = () => async dispatch => {
 
 export const handleToken = token => async dispatch => {
   try {
-    dispatch(loadingStart());
     const res = await axios.post("/api/stripe", token);
     dispatch({ type: FETCH_USER, payload: res.data });
-    dispatch(loadingStop());
   } catch (error) {
-    dispatch(loadingStop());
     console.log(error);
   }
 };

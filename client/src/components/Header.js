@@ -16,11 +16,14 @@ class Header extends Component {
           </Link>
           <ul className="right">
             <li>{this.props.loggedIn && <Payments />}</li>
+            <li style={{ margin: "0 10px" }}>
+              {this.props.loggedIn && (
+                <strong>Credits: {this.props.loggedIn.credits}</strong>
+              )}
+            </li>
             <li>
               {this.props.loggedIn ? (
-                <React.Fragment>
-                  <a href="/api/logout">Logout</a>
-                </React.Fragment>
+                <a href="/api/logout">Logout</a>
               ) : (
                 <a href="/auth/google">Login With Google</a>
               )}
