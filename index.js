@@ -6,6 +6,7 @@ const bodyParser = require("body-parser");
 
 require("./services/passport");
 const authRouter = require("./routes/authRoutes");
+const billingRouter = require("./routes/billingRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -20,6 +21,7 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(authRouter);
+app.use(billingRouter);
 
 const mongooseConnect = async () => {
   try {
