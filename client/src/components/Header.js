@@ -1,14 +1,18 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class Header extends Component {
   render() {
     return (
       <nav>
         <div className="nav-wrapper">
-          <a href="/" className="left brand-logo">
+          <Link
+            to={this.props.loggedIn ? "/surveys" : "/"}
+            className="left brand-logo"
+          >
             Emaily
-          </a>
+          </Link>
           <ul className="right">
             <li>
               {this.props.loggedIn ? (
