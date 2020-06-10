@@ -18,11 +18,10 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
       dateSent: Date.now()
     });
     const mailer = new Mailer(survey, surveyTemplate(survey));
-
     await mailer.send();
     res.redirect("/");
   } catch (error) {
-    console.log(error.response.body);
+    console.log(error);
   }
 });
 
