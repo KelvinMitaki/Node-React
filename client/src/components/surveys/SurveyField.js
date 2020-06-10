@@ -1,9 +1,14 @@
 import React from "react";
 
-const SurveyField = props => {
+const SurveyField = ({ input, label }) => {
   return (
     <div>
-      <input type="text" {...props} />
+      <label>
+        <h5>
+          <strong>{label}</strong>
+        </h5>
+      </label>
+      <input type="text" {...input} />
     </div>
   );
 };
