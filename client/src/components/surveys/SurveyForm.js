@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
 import { Link } from "react-router-dom";
+import validator from "validator";
 
 export class SurveyForm extends Component {
   render() {
@@ -33,6 +34,7 @@ export class SurveyForm extends Component {
             label="Recipient List"
           />
           <Link to="/surveys" className="red btn-flat left white-text">
+            <i className="material-icons left">close</i>
             cancel
           </Link>
           <button type="submit" className="teal btn-flat right white-text">
@@ -45,4 +47,29 @@ export class SurveyForm extends Component {
   }
 }
 
-export default reduxForm({ form: "SurveyForm" })(SurveyForm);
+const validate = values => {
+  let errors = {};
+  if (!values.body) {
+    errors.body = "You must provide the body of the survey";
+  }
+  if (!values.subject) {
+    errors.subject = "You must provide the subject of the survey";
+  }
+  if (!values.title) {
+    errors.title = "You must provide the title of the survey";
+  }
+  if (!values.emails) {
+    errors.emails = "You must provide the emails";
+  }
+  if (values.emails) {
+    const isEmail = values.emails
+      .split(",")
+      .map(email => validator.isEmail(email));
+    if (isEmail.includes(false)) {
+      errors.isEmail = "Please enter a valid email";
+    }
+  }
+  return errors;
+};
+
+export default reduxForm({ validate, form: "SurveyForm" })(SurveyForm);

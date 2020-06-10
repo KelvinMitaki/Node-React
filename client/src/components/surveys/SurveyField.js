@@ -1,6 +1,7 @@
 import React from "react";
 
-const SurveyField = ({ input, label }) => {
+const SurveyField = ({ input, label, meta }) => {
+  console.log(meta.error);
   return (
     <div>
       <label>
