@@ -1,8 +1,10 @@
 const route = require("express").Router();
 
+const Mailer = require("../services/Mailer");
 const Survey = require("../models/Survey");
 const auth = require("../middlewares/authCheck");
 const credits = require("../middlewares/creditsCheck");
+const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 
 route.post("/api/surveys", auth, credits, async (req, res) => {
   try {
@@ -15,9 +17,12 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
       _user: req.user._id,
       dateSent: Date.now()
     });
-    await survey.save();
+    const mailer = new Mailer(survey, surveyTemplate(survey));
+
+    await mailer.send();
+    res.redirect("/");
   } catch (error) {
-    console.log(error);
+    console.log(error.response.body);
   }
 });
 
