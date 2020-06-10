@@ -7,6 +7,7 @@ import { fetchUser } from "../redux/actions";
 import "./App.css";
 import Dashboard from "./Dashboard";
 import Landing from "./Landing";
+import SurveyNew from "./surveys/SurveyNew";
 
 export class App extends Component {
   componentDidMount() {
@@ -27,7 +28,8 @@ export class App extends Component {
         <BrowserRouter>
           <Header />
           <Route path="/" exact component={Landing} />
-          <Route path="/surveys" component={Dashboard} />
+          <Route path="/surveys" exact component={Dashboard} />
+          <Route path="/surveys/new" component={SurveyNew} />
         </BrowserRouter>
       </div>
     );
