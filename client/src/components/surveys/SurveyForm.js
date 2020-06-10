@@ -66,7 +66,7 @@ const validate = values => {
       .split(",")
       .map(email => validator.isEmail(email));
     if (isEmail.includes(false)) {
-      errors.isEmail = "Please enter a valid email";
+      errors.emails = "Please enter a valid email";
     }
   }
   return errors;

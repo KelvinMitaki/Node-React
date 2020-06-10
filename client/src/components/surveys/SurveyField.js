@@ -1,7 +1,6 @@
 import React from "react";
 
 const SurveyField = ({ input, label, meta }) => {
-  console.log(meta.error);
   return (
     <div>
       <label>
@@ -10,6 +9,7 @@ const SurveyField = ({ input, label, meta }) => {
         </h5>
       </label>
       <input type="text" {...input} />
+      {meta.touched && meta.error}
     </div>
   );
 };
