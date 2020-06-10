@@ -9,6 +9,7 @@ const bodyParser = require("body-parser");
 require("./services/passport");
 const authRouter = require("./routes/authRoutes");
 const billingRouter = require("./routes/billingRoutes");
+const surveyRouter = require("./routes/surveyRoutes");
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -24,6 +25,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(authRouter);
 app.use(billingRouter);
+app.use(surveyRouter);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
