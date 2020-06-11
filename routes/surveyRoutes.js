@@ -8,12 +8,12 @@ const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
 
 route.post("/api/surveys", auth, credits, async (req, res) => {
   try {
-    const { title, subject, body, recipients } = req.body;
+    const { title, subject, body, emails } = req.body;
     const survey = new Survey({
       title,
       subject,
       body,
-      recipients: recipients.split(",").map(email => ({ email: email.trim() })),
+      recipients: emails.split(",").map(email => ({ email: email.trim() })),
       _user: req.user._id,
       dateSent: Date.now()
     });
