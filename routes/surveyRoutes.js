@@ -1,4 +1,8 @@
+const { URL } = require("url");
+
 const route = require("express").Router();
+const Path = require("path-parser");
+const _ = require("lodash");
 
 const Mailer = require("../services/Mailer");
 const Survey = require("../models/Survey");
@@ -31,15 +35,16 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
 route.get("/api/surveys/thanks", (req, res) =>
   res.send("thanks for the feedback")
 );
-let test;
-route.post("/api/surveys/webhooks", (req, res) => {
-  console.log(req.body);
-  test = req.body;
-  res.send({ data: req.body });
-});
 
-route.get("/api/surveys/webhooks", (req, res) => {
-  res.send(test);
+route.post("/api/surveys/webhooks", (req, res) => {
+  const events = req.body.map(event => {
+    const pathname = new URL(event.url).pathname;
+    const p = new Path("/api/surveys/:surveyId/:choice");
+    const match = p.test(pathname);
+    if (match) return { email: event.email, ...match };
+  });
+  const newEvents = events.filter(event => event !== undefined);
+  const uniqueEvents = _.uniqBy(newEvents, "email", "surveyId");
 });
 
 module.exports = route;

@@ -24,9 +24,11 @@
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
     "localtunnel": "^2.0.0",
+    "lodash": "^4.17.15",
     "mongoose": "^5.9.18",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
+    "path-parser": "^6.1.0",
     "sendgrid": "^5.2.3",
     "stripe": "^8.60.0"
   }
