@@ -32,4 +32,9 @@ route.get("/api/surveys/thanks", (req, res) =>
   res.send("thanks for the feedback")
 );
 
+route.post("/api/surveys/webhooks", (req, res) => {
+  console.log(req.body);
+  res.send({ data: req.body });
+});
+
 module.exports = route;

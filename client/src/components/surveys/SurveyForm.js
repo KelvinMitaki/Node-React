@@ -5,7 +5,9 @@ import { Link, withRouter } from "react-router-dom";
 import validator from "validator";
 
 export class SurveyForm extends Component {
-  onFormSubmit = values => {};
+  onFormSubmit = values => {
+    this.props.history.push("/surveys/new/review");
+  };
   render() {
     return (
       <div>
@@ -41,7 +43,11 @@ export class SurveyForm extends Component {
           <Link
             to="/surveys/new/review"
             type="submit"
-            className="teal btn-flat right white-text"
+            className={
+              this.props.valid
+                ? "teal btn-flat right white-text"
+                : "teal btn-flat right white-text disabled"
+            }
           >
             Next
             <i className="material-icons right">done</i>

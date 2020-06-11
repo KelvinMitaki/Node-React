@@ -11,7 +11,7 @@
     "start": "node index.js",
     "server": "env-cmd -f config/keys.env nodemon index.js -e env,js,json",
     "client": "npm run start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "keywords": [],
@@ -23,6 +23,7 @@
     "cookie-session": "^1.4.0",
     "env-cmd": "^10.1.0",
     "express": "^4.17.1",
+    "localtunnel": "^2.0.0",
     "mongoose": "^5.9.18",
     "passport": "^0.4.1",
     "passport-google-oauth20": "^2.0.0",
