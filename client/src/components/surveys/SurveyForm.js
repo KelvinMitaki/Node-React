@@ -49,24 +49,24 @@ export class SurveyForm extends Component {
 
 const validate = values => {
   let errors = {};
-  if (!values.body) {
+  if (!values.body || (values.body && !values.body.trim())) {
     errors.body = "You must provide the body of the survey";
   }
-  if (!values.subject) {
+  if (!values.subject || (values.subject && !values.subject.trim())) {
     errors.subject = "You must provide the subject of the survey";
   }
-  if (!values.title) {
+  if (!values.title || (values.title && !values.title.trim())) {
     errors.title = "You must provide the title of the survey";
   }
-  if (!values.emails) {
+  if (!values.emails || (values.emails && !values.emails.trim())) {
     errors.emails = "You must provide the emails";
   }
   if (values.emails) {
     const isEmail = values.emails
       .split(",")
-      .map(email => validator.isEmail(email));
+      .map(email => validator.isEmail(email.trim()));
     if (isEmail.includes(false)) {
-      errors.emails = "Please enter a valid email";
+      errors.emails = "Please enter a valid email seperated by commas";
     }
   }
   return errors;
