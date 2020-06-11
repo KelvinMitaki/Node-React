@@ -8,7 +8,7 @@ export class SurveyForm extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(values => console.log(values))}>
+        <form onSubmit={this.props.handleSubmit(this.props.onFormReview)}>
           <Field
             component={SurveyField}
             type="text"
@@ -66,7 +66,7 @@ const validate = values => {
       .split(",")
       .map(email => validator.isEmail(email.trim()));
     if (isEmail.includes(false)) {
-      errors.emails = "Please enter a valid email seperated by commas";
+      errors.emails = "Please enter valid emails seperated by commas";
     }
   }
   return errors;
