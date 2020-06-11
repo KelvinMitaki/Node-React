@@ -10,13 +10,10 @@ import Landing from "./Landing";
 import SurveyNew from "./surveys/SurveyNew";
 import SurveyFormReview from "./surveys/SurveyFormReview";
 import NotFound from "./NotFound";
-import Axios from "axios";
 
 export class App extends Component {
-  async componentDidMount() {
+  componentDidMount() {
     this.props.fetchUser();
-    const res = await Axios.get("/api/surveys/webhooks");
-    console.log(res.data);
   }
   render() {
     if (this.props.loading) {

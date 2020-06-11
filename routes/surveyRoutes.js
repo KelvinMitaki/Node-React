@@ -31,10 +31,15 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
 route.get("/api/surveys/thanks", (req, res) =>
   res.send("thanks for the feedback")
 );
-
+let test;
 route.post("/api/surveys/webhooks", (req, res) => {
   console.log(req.body);
+  test = req.body;
   res.send({ data: req.body });
+});
+
+route.get("/api/surveys/webhooks", (req, res) => {
+  res.send(test);
 });
 
 module.exports = route;
