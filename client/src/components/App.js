@@ -1,4 +1,4 @@
-import { BrowserRouter, Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 
@@ -8,6 +8,8 @@ import "./App.css";
 import Dashboard from "./Dashboard";
 import Landing from "./Landing";
 import SurveyNew from "./surveys/SurveyNew";
+import SurveyFormReview from "./surveys/SurveyFormReview";
+import NotFound from "./NotFound";
 
 export class App extends Component {
   componentDidMount() {
@@ -24,16 +26,23 @@ export class App extends Component {
       );
     }
     return (
-      <div>
-        <BrowserRouter>
-          <Header />
-          <div className="container">
+      <React.Fragment>
+        <Header />
+        <div className="container">
+          <Switch>
             <Route path="/" exact component={Landing} />
             <Route path="/surveys" exact component={Dashboard} />
-            <Route path="/surveys/new" component={SurveyNew} />
-          </div>
-        </BrowserRouter>
-      </div>
+            <Route path="/surveys/new" exact component={SurveyNew} />
+            <Route
+              path="/surveys/new/review"
+              exact
+              component={SurveyFormReview}
+            />
+
+            <Route component={NotFound} />
+          </Switch>
+        </div>
+      </React.Fragment>
     );
   }
 }

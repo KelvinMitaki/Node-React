@@ -1,12 +1,13 @@
 import React from "react";
 import { connect } from "react-redux";
 import { sendSurvey } from "../../redux/actions";
-import { withRouter } from "react-router-dom";
+import { withRouter, Redirect } from "react-router-dom";
 
-const SurveyFormReview = ({ onCancel, formValues, sendSurvey, history }) => {
+const SurveyFormReview = ({ formValues, sendSurvey, history }) => {
   const handleClick = async values => {
     await sendSurvey(values, history);
   };
+  if (!formValues) return <Redirect to="/surveys/new" />;
   return (
     <div>
       <h4>please review your entries</h4>
@@ -33,7 +34,7 @@ const SurveyFormReview = ({ onCancel, formValues, sendSurvey, history }) => {
         <br />
       </div>
       <button
-        onClick={onCancel}
+        onClick={history.goBack}
         className="yellow darken-3 btn-flat white-text"
       >
         back
@@ -50,8 +51,12 @@ const SurveyFormReview = ({ onCancel, formValues, sendSurvey, history }) => {
 };
 
 const mapStateToProps = state => {
+  let formValues;
+  if (state.form.SurveyForm && state.form.SurveyForm.values) {
+    formValues = state.form.SurveyForm.values;
+  }
   return {
-    formValues: state.form.SurveyForm.values
+    formValues
   };
 };
 

@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import { reduxForm, Field } from "redux-form";
 import SurveyField from "./SurveyField";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import validator from "validator";
 
 export class SurveyForm extends Component {
+  onFormSubmit = values => {};
   render() {
     return (
       <div>
-        <form onSubmit={this.props.handleSubmit(this.props.onFormReview)}>
+        <form onSubmit={this.props.handleSubmit(this.onFormSubmit)}>
           <Field
             component={SurveyField}
             type="text"
@@ -37,10 +38,14 @@ export class SurveyForm extends Component {
             <i className="material-icons left">close</i>
             cancel
           </Link>
-          <button type="submit" className="teal btn-flat right white-text">
+          <Link
+            to="/surveys/new/review"
+            type="submit"
+            className="teal btn-flat right white-text"
+          >
             Next
             <i className="material-icons right">done</i>
-          </button>
+          </Link>
         </form>
       </div>
     );
@@ -72,8 +77,10 @@ const validate = values => {
   return errors;
 };
 
-export default reduxForm({
-  validate,
-  form: "SurveyForm",
-  destroyOnUnmount: false
-})(SurveyForm);
+export default withRouter(
+  reduxForm({
+    validate,
+    form: "SurveyForm",
+    destroyOnUnmount: false
+  })(SurveyForm)
+);
