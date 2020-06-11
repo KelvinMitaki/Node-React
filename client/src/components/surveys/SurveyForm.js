@@ -72,4 +72,8 @@ const validate = values => {
   return errors;
 };
 
-export default reduxForm({ validate, form: "SurveyForm" })(SurveyForm);
+export default reduxForm({
+  validate,
+  form: "SurveyForm",
+  destroyOnUnmount: false
+})(SurveyForm);
