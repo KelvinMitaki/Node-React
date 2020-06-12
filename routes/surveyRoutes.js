@@ -34,9 +34,11 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
 
 route.get("/api/surveys", auth, async (req, res) => {
   try {
-    const surveys = await Survey.find({ _user: req.user._id }).select({
-      recipients: false
-    });
+    const surveys = await Survey.find({ _user: req.user._id })
+      .select({
+        recipients: false
+      })
+      .sort({ dateSent: -1 });
     res.send(surveys);
   } catch (error) {
     res.status(401).send(error);
