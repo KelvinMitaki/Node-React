@@ -36,11 +36,10 @@ route.get("/api/surveys/thanks", (req, res) =>
   res.send("thanks for the feedback")
 );
 
+const p = new Path("/api/surveys/:surveyId/:choice");
 route.post("/api/surveys/webhooks", (req, res) => {
   const events = req.body.map(event => {
-    const pathname = new URL(event.url).pathname;
-    const p = new Path("/api/surveys/:surveyId/:choice");
-    const match = p.test(pathname);
+    const match = p.test(new URL(event.url).pathname);
     if (match) return { email: event.email, ...match };
   });
   const newEvents = events.filter(event => event !== undefined);
