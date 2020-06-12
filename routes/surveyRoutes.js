@@ -32,18 +32,43 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
   }
 });
 
+route.get("/api/surveys", auth, async (req, res) => {
+  try {
+    const surveys = await Survey.find({ _user: req.user._id });
+    res.send(surveys);
+  } catch (error) {
+    res.status(401).send(error);
+  }
+});
+
 route.get("/api/surveys/thanks", (req, res) =>
   res.send("thanks for the feedback")
 );
+route.get("/api/surveys/:surveyId/:choice", (req, res) =>
+  res.send("thanks for the feedback")
+);
 
-const p = new Path("/api/surveys/:surveyId/:choice");
 route.post("/api/surveys/webhooks", (req, res) => {
+  const p = new Path("/api/surveys/:surveyId/:choice");
   const events = req.body.map(event => {
     const match = p.test(new URL(event.url).pathname);
     if (match) return { email: event.email, ...match };
   });
   const newEvents = events.filter(event => event !== undefined);
   const uniqueEvents = _.uniqBy(newEvents, "email", "surveyId");
+  uniqueEvents.forEach(async ({ surveyId, choice, email }) => {
+    await Survey.findOneAndUpdate(
+      {
+        _id: surveyId,
+        recipients: { $elemMatch: { email, responded: false } }
+      },
+      {
+        $inc: { [choice]: 1 },
+        $set: { "recipients.$.responded": true },
+        lastResponded: new Date()
+      }
+    );
+  });
 });
 
 module.exports = route;
