@@ -34,26 +34,12 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
 
 route.get("/api/surveys", auth, async (req, res) => {
   try {
-    const util = require("util");
-    const redis = require("redis");
-    const redisUrl = "redis://127.0.0.1:6379";
-    const client = redis.createClient(redisUrl);
-    client.get = util.promisify(client.get);
-    // CACHED DATA IN REDIS FOR THIS QUERY
-    const cachedSurveys = await client.get(req.user._id.toString());
-    // CHECK IF DATA EXISTS IN CACHE
-    if (cachedSurveys) {
-      console.log(`SERVING FROM CACHE`);
-      return res.send(JSON.parse(cachedSurveys));
-    }
     const surveys = await Survey.find({ _user: req.user._id })
       .select({
         recipients: false
       })
       .sort({ dateSent: -1 });
-    console.log(`SERVING FROM MONGO DB`);
     res.send(surveys);
-    client.set(req.user._id.toString(), JSON.stringify(surveys));
   } catch (error) {
     res.status(401).send(error);
   }

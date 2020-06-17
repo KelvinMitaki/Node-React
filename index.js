@@ -7,6 +7,7 @@ const passport = require("passport");
 const bodyParser = require("body-parser");
 
 require("./services/passport");
+require("./services/cache");
 const authRouter = require("./routes/authRoutes");
 const billingRouter = require("./routes/billingRoutes");
 const surveyRouter = require("./routes/surveyRoutes");
