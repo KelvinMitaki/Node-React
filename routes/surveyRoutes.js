@@ -9,6 +9,7 @@ const Survey = require("../models/Survey");
 const auth = require("../middlewares/authCheck");
 const credits = require("../middlewares/creditsCheck");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
+const { clearHash } = require("../services/cache");
 
 route.post("/api/surveys", auth, credits, async (req, res) => {
   try {
@@ -21,6 +22,7 @@ route.post("/api/surveys", auth, credits, async (req, res) => {
       _user: req.user._id,
       dateSent: Date.now()
     });
+    clearHash(req.user._id);
     const mailer = new Mailer(survey, surveyTemplate(survey));
     await mailer.send();
     req.user.credits -= 1;
@@ -38,7 +40,8 @@ route.get("/api/surveys", auth, async (req, res) => {
       .select({
         recipients: false
       })
-      .sort({ dateSent: -1 });
+      .sort({ dateSent: -1 })
+      .cache({ key: req.user._id });
     res.send(surveys);
   } catch (error) {
     res.status(401).send(error);
