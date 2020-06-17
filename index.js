@@ -42,6 +42,7 @@ const mongooseConnect = async () => {
       useCreateIndex: true,
       useFindAndModify: false
     });
+    console.log("connected to the database");
   } catch (error) {
     console.log(error);
   }
