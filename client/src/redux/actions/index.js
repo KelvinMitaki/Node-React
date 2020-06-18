@@ -39,7 +39,7 @@ export const handleToken = token => async dispatch => {
   }
 };
 
-export const sendSurvey = (values, history) => async dispatch => {
+export const sendSurvey = (values, file, history) => async dispatch => {
   try {
     dispatch(loadingStart());
     const res = await axios.post("/api/surveys", values);
