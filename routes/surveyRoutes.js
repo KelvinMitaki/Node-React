@@ -1,4 +1,5 @@
 const { URL } = require("url");
+const os = require("os");
 
 const route = require("express").Router();
 const Path = require("path-parser");
@@ -42,7 +43,7 @@ route.get("/api/surveys", auth, async (req, res) => {
       })
       .sort({ dateSent: -1 })
       .cache({ key: req.user._id });
-    res.send(surveys);
+    res.send({ surveys, cpus: os.cpus().length });
   } catch (error) {
     res.status(401).send(error);
   }

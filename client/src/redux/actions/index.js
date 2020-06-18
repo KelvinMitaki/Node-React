@@ -55,7 +55,8 @@ export const sendSurvey = (values, file, history) => async dispatch => {
 export const fetchSurveys = () => async dispatch => {
   try {
     const res = await axios.get("/api/surveys");
-    dispatch({ type: FETCH_SURVEYS, payload: res.data });
+    console.log("CPUs: ", res.data.cpus);
+    dispatch({ type: FETCH_SURVEYS, payload: res.data.surveys });
   } catch (error) {
     console.log(error);
   }
