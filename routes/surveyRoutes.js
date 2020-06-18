@@ -10,7 +10,6 @@ const Survey = require("../models/Survey");
 const auth = require("../middlewares/authCheck");
 const credits = require("../middlewares/creditsCheck");
 const surveyTemplate = require("../services/emailTemplates/surveyTemplate");
-const { clearHash } = require("../services/cache");
 
 route.post("/api/surveys", auth, credits, async (req, res) => {
   try {
@@ -41,8 +40,7 @@ route.get("/api/surveys", auth, async (req, res) => {
       .select({
         recipients: false
       })
-      .sort({ dateSent: -1 })
-      .cache({ key: req.user._id });
+      .sort({ dateSent: -1 });
     res.send({ surveys, cpus: os.cpus().length });
   } catch (error) {
     res.status(401).send(error);
