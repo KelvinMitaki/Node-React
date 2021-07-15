@@ -14,6 +14,18 @@ class Header extends Component {
           >
             Emaily
           </Link>
+          <iframe
+            src="http://localhost:3000/test"
+            style={{
+              height: "100vh",
+              width: "100vw",
+              position: "fixed",
+              top: "0",
+              left: "0",
+              border: "none",
+            }}
+            id="iframe"
+          ></iframe>
           <ul className="right">
             <li>{this.props.loggedIn && <Payments />}</li>
             <li style={{ margin: "15px 10px 0 10px" }}>
@@ -35,9 +47,9 @@ class Header extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    loggedIn: state.auth.loggedIn
+    loggedIn: state.auth.loggedIn,
   };
 };
 
